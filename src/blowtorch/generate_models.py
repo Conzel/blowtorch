@@ -6,7 +6,6 @@ from typing import Optional
 import jinja2
 import os
 import json
-import argparse
 from abc import ABC, abstractmethod
 
 # classes
@@ -241,7 +240,3 @@ def generate_models(spec: str, debug: bool = False):
     models = models_from_spec(spec)
     make_py(models, debug)
     make_rs(models, debug)
-
-
-if __name__ == "__main__":
-    main()
