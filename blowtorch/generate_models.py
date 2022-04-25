@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import ast
-import pathlib
+from pathlib import Path
 from typing import Optional
 import jinja2
 import os
@@ -197,7 +197,8 @@ class Model():
 
 
 def get_template(name: str):
-    loader = jinja2.FileSystemLoader("./templates")
+    template_path = Path(__file__).parent / "templates"
+    loader = jinja2.FileSystemLoader(template_path)
     env = jinja2.Environment(loader=loader)
     return env.get_template(name)
 
@@ -208,22 +209,22 @@ def write_output(filename: str, content: str):
         print(f"Successfully wrote output to {filename}")
 
 
-def make_py(models: list[Model]):
+def make_py(models: list[Model], debug: bool = False):
     template = get_template("models_template.py.jinja2")
 
     content = template.render(
-        models=models, file=__file__, debug=args.debug)
+        models=models, file=__file__, debug=debug)
 
     # writing out the models.rs file
     model_output_file = os.path.join("models", "models.py")
     write_output(model_output_file, content)
 
 
-def make_rs(models: list[Model]):
+def make_rs(models: list[Model], debug: bool = False):
     template = get_template("models_template.rs.jinja2")
 
     content = template.render(
-        models=models, file=__file__, debug=args.debug)
+        models=models, file=__file__, debug=debug)
 
     # writing out the models.rs file
     model_output_file = os.path.join("models", "models.rs")
@@ -241,30 +242,31 @@ def make_export(models: list[Model]):
                         f"{model.module_name}.{layer.name}.{weight.name}")
 
     content = template.render(
-        keys=keys_to_export, file=__file__, debug=args.debug)
+        keys=keys_to_export, file=__file__)
 
     # writing out the models.rs file
     model_output_file = os.path.join("models", "export_weights.py")
     write_output(model_output_file, content)
 
 
-def main(args):
-    specification_file = open(args.specification, "r")
-    specifications = json.load(specification_file)
-    models = list(map(Model, specifications))
-    make_py(models)
-    make_rs(models)
-    make_export(models)
-
-
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         description='Render a model file from a specification.')
-    parser.add_argument('specification', metavar='SPEC', type=pathlib.Path,
+    parser.add_argument('specification', metavar='SPEC', type=Path,
                         help='Specification we should use to create the model file.')
     parser.add_argument("--debug", action='store_true',
                         help='Debug mode. Will activate trace outputs in the model output file.')
 
     args = parser.parse_args()
 
-    main(args)
+    specification_file = open(args.specification, "r")
+    specifications = json.load(specification_file)
+    models = list(map(Model, specifications))
+    os.makedirs("models", exist_ok=True)
+    make_py(models)
+    make_rs(models)
+    make_export(models)
+
+
+if __name__ == "__main__":
+    main()
