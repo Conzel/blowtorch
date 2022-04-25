@@ -231,41 +231,16 @@ def make_rs(models: list[Model], debug: bool = False):
     write_output(model_output_file, content)
 
 
-def make_export(models: list[Model]):
-    template = get_template("export_weights.py.jinja2")
-    keys_to_export = []
-    for model in models:
-        for layer in model.layers:
-            for weight in layer.weights:
-                if weight is not None:
-                    keys_to_export.append(
-                        f"{model.module_name}.{layer.name}.{weight.name}")
-
-    content = template.render(
-        keys=keys_to_export, file=__file__)
-
-    # writing out the models.rs file
-    model_output_file = os.path.join("models", "export_weights.py")
-    write_output(model_output_file, content)
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description='Render a model file from a specification.')
-    parser.add_argument('specification', metavar='SPEC', type=Path,
-                        help='Specification we should use to create the model file.')
-    parser.add_argument("--debug", action='store_true',
-                        help='Debug mode. Will activate trace outputs in the model output file.')
-
-    args = parser.parse_args()
-
-    specification_file = open(args.specification, "r")
+def models_from_spec(spec: str) -> list[Model]:
+    specification_file = open(spec, "r")
     specifications = json.load(specification_file)
-    models = list(map(Model, specifications))
-    os.makedirs("models", exist_ok=True)
-    make_py(models)
-    make_rs(models)
-    make_export(models)
+    return list(map(Model, specifications))
+
+
+def generate_models(spec: str, debug: bool = False):
+    models = models_from_spec(spec)
+    make_py(models, debug)
+    make_rs(models, debug)
 
 
 if __name__ == "__main__":
