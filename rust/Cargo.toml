@@ -1,0 +1,17 @@
+[package]
+name = "blowtorch"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+convolutions-rs = "0.3.4"
+num-traits = "0.2.14"
+ndarray = "0.15.4"
+ndarray-npy = "0.8.1"
+thiserror = "1.0.30"
+log = "0.4.14"
+
+[dev.dependencies]
+tempfile = "3.3.0"

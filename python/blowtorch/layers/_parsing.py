@@ -20,5 +20,8 @@ class Model():
         """
         TODO
         """
+        # TODO:
+        self.input_dim = 3
+        self.output_dim = 3
         self.module_name = specification["module_name"]
         self.layers = list(map(parse_layer, specification["layers"]))

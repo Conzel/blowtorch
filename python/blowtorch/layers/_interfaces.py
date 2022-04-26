@@ -54,17 +54,3 @@ class Layer(ABC):
     def args_rust(self) -> list[str]:
         """TODO"""
         pass
-
-
-class Model():
-    """
-    TODO
-    Model that can be parsed by the models_template.rs Jinja file.
-    """
-
-    def __init__(self, specification):
-        """
-        TODO
-        """
-        self.module_name = specification["module_name"]
-        self.layers = list(map(parse_layer, specification["layers"]))
