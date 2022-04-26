@@ -7,22 +7,31 @@
 # Please do not change this file by hand.
 
 import torch.nn as nn
+from collections import OrderedDict
 
 {% for m in models %}
-class {{m.module_name}}:
+class {{m.module_name}}(nn.Module):
     """Automatically generated class for module {{m.module_name}}."""
     def __init__(self):
-        self.layers = nn.Sequential(
+        super().__init__()
+        self.layers = nn.Sequential(OrderedDict([
             {% for l in m.layers -%}
+            ('{{l.name}}', 
             nn.{{l.type_py}}({%- for p in l.args_py.items() -%}
                     {{p[0]}}={{p[1]}}
                     {%- if not loop.last -%}
                         ,
                     {%- endif %}
                     {%- endfor %})
+            )
                 {%- if not loop.last -%}
                 ,
                 {% endif %}
+            
             {%- endfor %}
+        ])
         )
+
+    def forward(self, x):
+        return self.layers(x)
 {% endfor %}
