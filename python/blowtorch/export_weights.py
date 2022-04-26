@@ -33,7 +33,7 @@ def get_export_keys(spec: str):
             for weight in layer.weights:
                 if weight is not None:
                     keys_to_export.append(
-                        f"{model.module_name}.{layer.name}.{weight.name}")
+                        f"layers.{layer.name}.{weight.name}")
     return keys_to_export
 
 
@@ -48,6 +48,6 @@ def export(spec: str, checkpoint: str, out: str):
     reparametrize_gdns(state_dict, model)
 
     exported_dict = {key: state_dict[key] for key in get_export_keys(spec)}
-    exported_dict["entropy_bottleneck._medians"] = state_dict["entropy_bottleneck.quantiles"][:, :, 1:2].squeeze()
+    #exported_dict["entropy_bottleneck._medians"] = state_dict["entropy_bottleneck.quantiles"][:, :, 1:2].squeeze()
     np.savez(out, **exported_dict)
     print(f"Successfully wrote weights to {out}")

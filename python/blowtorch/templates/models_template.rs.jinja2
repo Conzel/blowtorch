@@ -42,7 +42,7 @@ use blowtorch::nn::{ConvolutionLayer, TransposedConvolutionLayer};
             {% for l in m.layers -%}
                 {% for w in l.weights -%}
                     {% if w is not none -%}
-                        {% set weight_key = m.module_name + "." + l.name + "." + w.name + ".npy" %}
+                        {% set weight_key = "layers" + "." + l.name + "." + w.name + ".npy" %}
                         let {{ l.name }}_{{w.name}} = loader.get_weight("{{weight_key}}",
                             {{ w.shape }}
                         ).unwrap();
