@@ -2,6 +2,7 @@ from pathlib import Path
 import jinja2
 import os
 import json
+import jsonschema
 from .layers import Model
 
 
@@ -40,13 +41,17 @@ def make_rs(models: list[Model], debug: bool = False):
     write_output(model_output_file, content)
 
 
-def models_from_spec(spec: str) -> list[Model]:
+def models_from_spec(spec: str, skip_validation: bool = False) -> list[Model]:
     specification_file = open(spec, "r")
     specifications = json.load(specification_file)
+    if not skip_validation:
+        with open(Path(__file__).parent / "schema/model-schema.schema") as schema_file:
+            jsonschema.validate(specifications, json.load(schema_file))
+            print("Model specification passed validation.")
     return list(map(Model, specifications))
 
 
-def generate_models(spec: str, debug: bool = False):
+def generate_models(spec: str, skip_validation: bool = False, debug: bool = False, ):
     os.makedirs("models", exist_ok=True)
     models = models_from_spec(spec)
     make_py(models, debug)

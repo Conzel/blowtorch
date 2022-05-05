@@ -1,0 +1,96 @@
+{
+    "title": "Blowtorch model",
+    "description": "A valid model for Blowtorch that can be parsed to both Rust and Python.",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "module_name": {
+                "type": "string",
+                "description": "The name of the module that we are describing. This is the class name in Python and Rust.",
+                "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+            },
+            "layers": {
+                "type": "array",
+                "description": "The layers that make up the module.",
+                "items": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/base_module"
+                        },
+                        {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/$defs/convolution"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "required": [
+            "module_name",
+            "layers"
+        ]
+    },
+    "$defs": {
+        "base_module": {
+            "type": "object",
+            "description": "One layer of the module",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "The type of layer that we are describing.",
+                    "enum": [
+                        "Conv2d",
+                        "Conv2dTranspose",
+                        "ReLU"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the layer. Must be unique among all layers."
+                }
+            },
+            "required": [
+                "type",
+                "name"
+            ]
+        },
+        "convolution": {
+            "type": "object",
+            "description": "A convolution layer (transpose or normal)",
+            "properties": {
+                "out_channels": {
+                    "type": "integer"
+                },
+                "in_channels": {
+                    "type": "integer"
+                },
+                "kernel_size": {
+                    "type": "string",
+                    "description": "The size of the kernel as tuple",
+                    "pattern": "^\\([0-9]+,[0-9]+\\)$"
+                },
+                "stride": {
+                    "type": "integer",
+                    "description": "Stride of the convolution, default=1."
+                },
+                "padding": {
+                    "type": "string",
+                    "description": "Padding of the convolution, default=valid.",
+                    "enum": [
+                        "valid",
+                        "same"
+                    ]
+                }
+            },
+            "required": [
+                "out_channels",
+                "in_channels",
+                "kernel_size"
+            ]
+        }
+    }
+}

@@ -15,6 +15,8 @@ def main():
     export_parser = subparsers.add_parser("export", help="TODO")
     generate_parser = subparsers.add_parser("generate", help="TODO")
 
+    generate_parser.add_argument("--skip-validation", type=bool, help="If set to true, does not validate the passed specification with the model jsonscheme.")
+
     export_parser.add_argument("--out", metavar="OUT",
                                type=Path, default="weights.npz", help="Name of the file the weights are saved to.")
     export_parser.add_argument("checkpoint", metavar="CHECKPOINT",
