@@ -4,6 +4,11 @@ from ._interfaces import Layer, Weight
 
 
 class Conv2dBase(Layer):
+    """
+    Base class for 2d convolutions, as there is not much change between
+    Conv2d and Conv2dTranspose.
+    """
+
     def __init__(self, spec):
         super().__init__(spec)
         self.in_channels = spec["in_channels"]
@@ -36,7 +41,6 @@ class Conv2dBase(Layer):
 
     @property
     def weights(self) -> list[Optional[Weight]]:
-        # TODO: Does weight need to be transferred to both children?
         kernel = Weight("weight", (self.out_channels, self.in_channels,
                         self.kernel_size[0], self.kernel_size[1]))
         if self.bias is False:
@@ -51,6 +55,9 @@ class Conv2dBase(Layer):
 
 
 class Conv2d(Conv2dBase):
+    """
+    Represents a 2d convolutional layer that can be rendered in Python and Rust.
+    """
     @property
     def type_py(self) -> str:
         return "Conv2d"
@@ -61,7 +68,7 @@ class Conv2d(Conv2dBase):
 
 
 class Conv2dTranspose(Conv2dBase):
-    """TODO"""
+    """Represents a 2d transposed convolutional layer that can be rendered in Python and Rust."""
     @property
     def type_py(self) -> str:
         return "ConvTranspose2d"
@@ -72,6 +79,7 @@ class Conv2dTranspose(Conv2dBase):
 
 
 def parse_padding_from_string(padding: str) -> str:
+    """Returns Rust padding from a padding string in {same, valid}."""
     assert padding is not None
     if padding.lower() == "same":
         return "Padding::Same"

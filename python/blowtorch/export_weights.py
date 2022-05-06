@@ -26,6 +26,10 @@ def reparametrize_gdns(state_dict, model):
 
 
 def get_export_keys(spec: str):
+    """
+    Returns the exact weight keys that need to be exported from the model. 
+    This removes unnecessary attributes such as training parameters.
+    """
     model_defs = models_from_spec(spec)
     keys_to_export = []
     for model in model_defs:
@@ -38,7 +42,10 @@ def get_export_keys(spec: str):
 
 
 def export(spec: str, checkpoint: str, out: str):
-    """TODO"""
+    """
+    Loads the model from the given specification, loads the weights
+    that are found in the checkpoint, and writes them to the file given by out.
+    """
     print("Loading model...")
     model = torch.load(checkpoint)
     # model update populates some important variables,

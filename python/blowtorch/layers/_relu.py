@@ -2,10 +2,9 @@ from ._interfaces import Weight, Layer
 
 
 class Relu(Layer):
-    """TODO"""
+    """ReLU activation function that can be rendered in Python and Rust."""
 
     def __init__(self, spec: dict) -> None:
-        """TODO"""
         super().__init__(spec)
         pass
 

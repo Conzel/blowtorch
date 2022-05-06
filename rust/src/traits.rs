@@ -2,6 +2,9 @@ use ndarray_npy::ReadableElement;
 use num_traits::{Float, FromPrimitive};
 use std::{io::Read, ops::AddAssign};
 
+/// Super trait that encompasses floats that behave like
+/// primitives. This is used for all neural network
+/// elements as basic operation type.
 pub trait FloatLikePrimitive:
     'static + Float + AddAssign + FromPrimitive + ReadableElement
 {
