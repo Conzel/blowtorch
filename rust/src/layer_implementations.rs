@@ -5,18 +5,23 @@
 use crate::{
     activation_functions::{GdnLayer, IgdnLayer, ReluLayer},
     traits::{FloatLikePrimitive, Layer},
+    linear::LinearLayer,
 };
 use convolutions_rs::{
     convolutions::ConvolutionLayer, transposed_convolutions::TransposedConvolutionLayer,
 };
-use ndarray::Array3;
+use ndarray::{Array3, Array2};
 
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ConvolutionLayer<F> {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
         self.convolve(input)
     }
 }
-
+impl<F: FloatLikePrimitive> Layer<Array2<F>, Array2<F>> for LinearLayer<F> {
+    fn forward_pass(&self, input: &Array2<F>) -> Array2<F> {
+        self.linear(input)
+    }
+}
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for TransposedConvolutionLayer<F> {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
         self.transposed_convolve(input)
