@@ -21,7 +21,8 @@
                         {
                             "anyOf": [
                                 {
-                                    "$ref": "#/$defs/convolution"
+                                    "$ref": "#/$defs/convolution",
+                                    "$ref": "#/$defs/linear"
                                 }
                             ]
                         }
@@ -46,8 +47,8 @@
                         "Conv2d",
                         "Conv2dTranspose",
                         "ReLU",
-                        "Linear",
                         "Flatten",
+                        "Linear"
                     ]
                 },
                 "name": {
@@ -92,6 +93,22 @@
                 "out_channels",
                 "in_channels",
                 "kernel_size"
+            ]
+        },
+       "linear": {
+            "type": "object",
+            "description": "A linear layer",
+            "properties": {
+                "out_features": {
+                    "type": "integer"
+                },
+                "in_features": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "out_channels",
+                "in_channels"
             ]
         }
     }
