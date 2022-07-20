@@ -93,3 +93,59 @@ where
         x.clone()
     }
 }
+
+fn arr_allclose<D: Dimension>(current: &Array<f32, D>, target: &Array<f32, D>) -> bool {
+    assert_eq!(
+        current.shape(),
+        target.shape(),
+        "\ngiven array had shape {:?}, but target had shape {:?}",
+        current.shape(),
+        target.shape()
+    );
+    (current - target).map(|x| (*x as f32).abs()).sum() < 1e-3
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_linear() {
+        let test_img = array![[-1.0643, -0.8746, -0.5266,  0.6039], 
+        [ 0.7219, -0.8092,  0.1590, -0.2309], 
+        [ 0.6337, -1.4233,  0.7101, -0.9875]];
+
+        let kernel: Array2<f32> = Array::from_shape_vec(
+            (2, 4), 
+            vec![0.0494,  0.1638, -0.3392, -0.3255, -0.1564,  0.3991,  0.1288,  0.0259],).unwrap();
+        let linear_layer = LinearLayer::new(kernel, None);
+        let linear_output = linear_layer.linear(&test_img);
+        let output: Array2<f32> = Array::from_shape_vec((3,2), vec![-0.21378263, -0.23478141, -0.07565995, -0.42135799, -0.12126643, -0.60126508]).unwrap();
+        assert!(
+            arr_allclose(&linear_output, &output),
+            "{:?} was not equal to {:?}",
+            linear_output,
+            output
+        );
+    }
+
+    #[test]
+    fn test_linear1() {
+        let test_img = array![[-1.0643, -0.8746, -0.5266,  0.6039], 
+        [ 0.7219, -0.8092,  0.1590, -0.2309], 
+        [ 0.6337, -1.4233,  0.7101, -0.9875]];
+
+        let kernel: Array2<f32> = Array::from_shape_vec(
+            (2, 4), 
+            vec![0.0494,  0.1638, -0.3392, -0.3255, -0.1564,  0.3991,  0.1288,  0.0259],).unwrap();
+        let linear_layer = LinearLayer::new(kernel, Some(Array::from_shape_vec((2,), vec![ 0.3759, -0.0778],).unwrap()));
+        let linear_output = linear_layer.linear(&test_img);
+        let output: Array2<f32> = Array::from_shape_vec((3,2), vec![ 0.1621, -0.3126,  0.3003, -0.4992, 0.2547, -0.6791]).unwrap();
+        assert!(
+            arr_allclose(&linear_output, &output),
+            "{:?} was not equal to {:?}",
+            linear_output,
+            output
+        );
+    }
+}

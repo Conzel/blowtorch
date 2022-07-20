@@ -1,12 +1,17 @@
 from typing import List
 from ._convolutions import Conv2d, Conv2dTranspose
 from ._relu import Relu
+from ._linear import LinearLayer
+from ._flatten import Flatten
 from ._interfaces import Layer
 
 """Contains the mapping of layer names (as in the specification) to 
 the python classes that implement them."""
 LAYER_DISPATCH = {"Conv2d": Conv2d,
-                  "Conv2dTranspose": Conv2dTranspose, "ReLU": Relu}
+                  "Conv2dTranspose": Conv2dTranspose, 
+                  "Linear":LinearLayer,
+                  "Flatten":Flatten,
+                  "ReLU": Relu}
 
 
 def parse_layer(layer_spec: dict) -> Layer:

@@ -45,7 +45,9 @@
                     "enum": [
                         "Conv2d",
                         "Conv2dTranspose",
-                        "ReLU"
+                        "ReLU",
+                        "Linear",
+                        "Flatten",
                     ]
                 },
                 "name": {

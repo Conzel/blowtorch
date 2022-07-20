@@ -11,7 +11,7 @@ WIP framework for running Pytorch models in Rust for inference.
     - [ ] GDN
     - [ ] iGDN
     - [ ] Flatten
-    - [ ] Linear
+    - [x] Linear
 - [ ] Provide an example
 - [ ] Provide possibilities to extend the framework
 - [ ] Write Readme

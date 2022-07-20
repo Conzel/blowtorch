@@ -1,6 +1,7 @@
 mod activation_functions;
 mod layer_implementations;
 mod linear;
+mod flatten;
 mod traits;
 mod weight_loader;
 
@@ -17,4 +18,6 @@ pub mod nn {
     }
     pub use crate::activation_functions::ReluLayer;
     pub use crate::traits::{FloatLikePrimitive, Layer};
+    pub use crate::flatten::Flatten;
+    pub use crate::linear::LinearLayer;
 }
