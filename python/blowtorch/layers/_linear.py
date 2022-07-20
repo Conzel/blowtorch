@@ -46,8 +46,8 @@ class LinearLayer(Layer):
     @property
     def args_py(self) -> dict[str, str]:
         return {
-            "in_channels": str(self.in_channels),
-            "out_channels": str(self.out_channels),            
+            "in_features": str(self.in_channels),
+            "out_features": str(self.out_channels),            
             "bias": str(self.bias)
         }
 

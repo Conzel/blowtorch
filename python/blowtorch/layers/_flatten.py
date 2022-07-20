@@ -10,7 +10,7 @@ class Flatten(Layer):
 
     @property
     def type_py(self) -> str:
-        return "flatten"
+        return "Flatten"
 
     @property
     def args_py(self) -> dict[str, str]:
