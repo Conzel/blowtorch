@@ -22,7 +22,9 @@
                             "anyOf": [
                                 {
                                     "$ref": "#/$defs/convolution",
-                                    "$ref": "#/$defs/linear"
+                                    "$ref": "#/$defs/linear",
+                                    "$ref": "#/$defs/relu",
+                                    "$ref": "#/$defs/flatten"
                                 }
                             ]
                         }
@@ -110,6 +112,18 @@
                 "out_channels",
                 "in_channels"
             ]
+        },
+       "flatten": {
+            "type": "object",
+            "description": "Flatten input",
+            "properties": {},
+            "required": []
+        },
+       "relu": {
+            "type": "object",
+            "description": "ReLU activation function",
+            "properties": {},
+            "required": []
         }
     }
 }

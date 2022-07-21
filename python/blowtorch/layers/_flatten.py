@@ -2,7 +2,7 @@ from ._interfaces import Weight, Layer
 
 
 class Flatten(Layer):
-    """ReLU activation function that can be rendered in Python and Rust."""
+    """Flatten layer that flattens array to a vector."""
 
     def __init__(self, spec: dict) -> None:
         super().__init__(spec)
