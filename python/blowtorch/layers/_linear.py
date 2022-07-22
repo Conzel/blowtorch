@@ -49,7 +49,7 @@ class LinearLayer(Layer):
             "in_features": str(self.in_channels),
             "out_features": str(self.out_channels),            
             "bias": str(self.bias)
-        }
+            }
 
     @property
     def args_rust(self) -> list[str]:
