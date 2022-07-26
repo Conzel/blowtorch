@@ -11,7 +11,7 @@ class LinearLayer(Layer):
 
     def __init__(self, spec):
         """
-        Base initialization for all layers. 
+        Base initialization for all layers.
         The name is always read from the specification in the same way.
         """
         super().__init__(spec)
@@ -19,7 +19,6 @@ class LinearLayer(Layer):
         self.out_channels = spec["out_channels"]
         self.bias = spec["bias"]
         self._name = spec["name"]
-
 
     @property
     def name(self) -> str:
@@ -47,9 +46,9 @@ class LinearLayer(Layer):
     def args_py(self) -> dict[str, str]:
         return {
             "in_features": str(self.in_channels),
-            "out_features": str(self.out_channels),            
-            "bias": str(self.bias)
-            }
+            "out_features": str(self.out_channels),
+            "bias": str(self.bias),
+        }
 
     @property
     def args_rust(self) -> list[str]:

@@ -4,9 +4,9 @@
 /// layer.
 use crate::{
     activation_functions::{GdnLayer, IgdnLayer, ReluLayer},
-    traits::{FloatLikePrimitive, Layer},
-    linear::LinearLayer,
     flatten::Flatten,
+    linear::LinearLayer,
+    traits::{FloatLikePrimitive, Layer},
 };
 use convolutions_rs::{
     convolutions::ConvolutionLayer, transposed_convolutions::TransposedConvolutionLayer,
@@ -46,8 +46,8 @@ impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ReluLayer {
         self.activate(input)
     }
 }
-impl<F: FloatLikePrimitive> Layer<Array2<F>, Array1<F>> for Flatten {
-    fn forward_pass(&self, input: &Array2<F>) -> Array1<F> {
+impl<F: FloatLikePrimitive> Layer<Array3<F>, Array2<F>> for Flatten {
+    fn forward_pass(&self, input: &Array3<F>) -> Array2<F> {
         self.activate(input)
     }
 }

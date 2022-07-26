@@ -224,4 +224,6 @@ Thumbs.db
 # Editor backup files #
 #######################
 *~
-python/blowtorch/blowtorch-example
+docs/mnist_example/weights.npz
+docs/mnist_example/model.pt 
+docs/mnist_example/target

@@ -3,21 +3,23 @@ from typing import Optional
 from abc import ABC, abstractmethod
 
 
-class Weight():
+class Weight:
     """
     Base class for a weight that a layer can have. This weight
-    will be used to load the weight from the npz weights file and 
+    will be used to load the weight from the npz weights file and
     thus be rendered in Rust.
 
     For description of attributes, see init method.
 
     Attributes:
-        name: Name of the weight. 
+        name: Name of the weight.
         shape: Shape of the weight.
         optional: Whether the weight is optional.
     """
 
-    def __init__(self, name: str, shape: tuple[int, ...], optional: bool = False) -> None:
+    def __init__(
+        self, name: str, shape: tuple[int, ...], optional: bool = False
+    ) -> None:
         """Initializes a layer weight
 
         Args:
@@ -45,7 +47,7 @@ class Layer(ABC):
 
     def __init__(self, spec: dict):
         """
-        Base initialization for all layers. 
+        Base initialization for all layers.
         The name is always read from the specification in the same way.
         """
         self._name = spec["name"]
@@ -77,13 +79,13 @@ class Layer(ABC):
     @property
     @abstractmethod
     def weights(self) -> list[Optional[Weight]]:
-        """List of weights that are used by this layer. If a layer weight is absent 
+        """List of weights that are used by this layer. If a layer weight is absent
         (for example if the layer does not have a bias), the corresponding element is set to None."""
         pass
 
     @property
     @abstractmethod
     def args_rust(self) -> list[str]:
-        """List of arguments that are passed to the constructor of the Rust layer (besides weights, 
+        """List of arguments that are passed to the constructor of the Rust layer (besides weights,
         which are specified in the weights property). Has to be in the correct order."""
         pass

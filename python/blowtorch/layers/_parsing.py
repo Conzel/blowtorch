@@ -7,20 +7,22 @@ from ._interfaces import Layer
 
 """Contains the mapping of layer names (as in the specification) to 
 the python classes that implement them."""
-LAYER_DISPATCH = {"Conv2d": Conv2d,
-                  "Conv2dTranspose": Conv2dTranspose, 
-                  "Linear":LinearLayer,
-                  "Flatten":Flatten,
-                  "ReLU": Relu}
+LAYER_DISPATCH = {
+    "Conv2d": Conv2d,
+    "Conv2dTranspose": Conv2dTranspose,
+    "Linear": LinearLayer,
+    "Flatten": Flatten,
+    "ReLU": Relu,
+}
 
 
 def parse_layer(layer_spec: dict) -> Layer:
-    """Parses the type of the layer from the specification and returns the corresponding 
+    """Parses the type of the layer from the specification and returns the corresponding
     python implementation of the layer that can be rendered."""
     return LAYER_DISPATCH[layer_spec["type"]](layer_spec)
 
 
-class Model():
+class Model:
     """
     Model that can be parsed by the models_template.rs Jinja file.
     Models that we represent are always equivalent to simple Sequential Modules.
@@ -41,5 +43,4 @@ class Model():
         self.input_dim = 3
         self.output_dim = 3
         self.module_name = specification["module_name"]
-        self.layers: List[Layer] = list(
-            map(parse_layer, specification["layers"]))
+        self.layers: List[Layer] = list(map(parse_layer, specification["layers"]))
