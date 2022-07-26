@@ -227,3 +227,4 @@ Thumbs.db
 docs/mnist_example/weights.npz
 docs/mnist_example/model.pt 
 docs/mnist_example/target
+.vscode/*
