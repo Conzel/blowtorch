@@ -41,6 +41,6 @@ class Model:
         # for now we fix the input and output dimension, but this should be configurable
         # (think of a layer that flattens the input?)
         self.input_dim = 3
-        self.output_dim = 3
+        self.output_dim = 1
         self.module_name = specification["module_name"]
         self.layers: List[Layer] = list(map(parse_layer, specification["layers"]))

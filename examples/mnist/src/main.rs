@@ -10,7 +10,8 @@ fn main() {
     let example_input = ndarray_npy::read_npy("examples/example_4.npy").unwrap();
     let predictions = m.forward_pass(&example_input);
 
-    for (i, row) in predictions.axis_iter(Axis(0)).enumerate() {
+    let pred_array = predictions.into_shape((1, 10)).unwrap();
+    for (i, row) in pred_array.axis_iter(Axis(0)).enumerate() {
         let (max_idx, max_val) =
             row.iter()
                 .enumerate()

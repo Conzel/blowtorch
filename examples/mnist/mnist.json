@@ -30,22 +30,22 @@
                 "type": "Linear",
                 "name": "fc1",
                 "bias": false,
-                "in_channels": 12544,
-                "out_channels": 120
+                "in_features": 12544,
+                "out_features": 120
             },
             {
                 "type": "Linear",
                 "name": "fc2",
                 "bias": false,
-                "in_channels": 120,
-                "out_channels": 84
+                "in_features": 120,
+                "out_features": 84
             },
             {
                 "type": "Linear",
                 "name": "fc3",
                 "bias": false,
-                "in_channels": 84,
-                "out_channels": 10
+                "in_features": 84,
+                "out_features": 10
             }
         ]
     }

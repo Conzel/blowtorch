@@ -30,7 +30,7 @@ class LinearLayer(Layer):
 
     @property
     def weights(self) -> list[Optional[Weight]]:
-        kernel = Weight("weight", (self.in_features, self.out_features))
+        kernel = Weight("weight", (self.out_features, self.in_features))
         if self.bias is False:
             bias = None
         else:
