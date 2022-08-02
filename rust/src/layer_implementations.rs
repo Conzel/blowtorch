@@ -24,8 +24,8 @@ impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for TransposedConvolutio
         self.transposed_convolve(input)
     }
 }
-impl<F: FloatLikePrimitive> Layer<Array2<F>, Array2<F>> for LinearLayer<F> {
-    fn forward_pass(&self, input: &Array2<F>) -> Array2<F> {
+impl<F: FloatLikePrimitive> Layer<Array1<F>, Array1<F>> for LinearLayer<F> {
+    fn forward_pass(&self, input: &Array1<F>) -> Array1<F> {
         self.linear(input)
     }
 }
