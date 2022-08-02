@@ -1,7 +1,20 @@
 Tutorial: Building an MNIST classifier
 ======================================
 
-Here we will write a brief tutorial on how to build and train an MNIST classifier. Navigate to the examples folder, i.e `cd examples/mnist/`.
+Here we will write a brief tutorial on how to build and train an MNIST classifier by using BlowTorch.
+
+First, please clone the repository as follows:
+
+.. code-block:: bash
+
+            git clone https://github.com/Conzel/blowtorch.git
+
+
+Next, navigate to the examples folder, i.e
+
+.. code-block:: bash
+
+            cd examples/mnist/    
 
 Model description
 ^^^^^^^^^^^^^^^^^^^
@@ -81,7 +94,7 @@ Generate network architecture (model) files for PyTorch and Rust
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Now, to simultaneously generate the network architecture according to the json description,
 that conforms PyTorch format and compatible in Rust, we can do the following: 
-(Assuming blowtorch is already installed via pip)
+(Assuming blowtorch is already installed via pip, please refer to installation instructions found in `docs/install.rst`)
 
 .. code-block:: bash
 

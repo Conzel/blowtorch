@@ -46,8 +46,8 @@ impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ReluLayer {
         self.activate(input)
     }
 }
-impl<F: FloatLikePrimitive> Layer<Array3<F>, Array2<F>> for Flatten {
-    fn forward_pass(&self, input: &Array3<F>) -> Array2<F> {
+impl<F: FloatLikePrimitive> Layer<Array3<F>, Array1<F>> for Flatten {
+    fn forward_pass(&self, input: &Array3<F>) -> Array1<F> {
         self.activate(input)
     }
 }
