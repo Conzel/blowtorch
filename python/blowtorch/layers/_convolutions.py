@@ -2,7 +2,7 @@ import ast
 from typing import Optional
 from ._interfaces import Layer, Weight
 
-
+ 
 class Conv2dBase(Layer):
     """
     Base class for 2d convolutions, as there is not much change between

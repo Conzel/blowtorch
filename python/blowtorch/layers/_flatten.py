@@ -2,7 +2,9 @@ from ._interfaces import Weight, Layer
 
 
 class Flatten(Layer):
-    """Flatten layer that flattens array to a vector."""
+    """Base class for flatten layer that flattens array to a vector.
+    Takes input array and flattens it to a vector.
+    """
 
     def __init__(self, spec: dict) -> None:
         super().__init__(spec)

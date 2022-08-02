@@ -109,8 +109,8 @@
                 }
             },
             "required": [
-                "out_channels",
-                "in_channels"
+                "out_features",
+                "in_features"
             ]
         },
        "flatten": {

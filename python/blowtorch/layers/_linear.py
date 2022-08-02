@@ -4,19 +4,14 @@ from ._interfaces import Layer, Weight
 
 
 class LinearLayer(Layer):
-    """The abstract base class for all layers. An object of this class represents
-    a layer that can be parsed from a specification and be transformed into both
-    Rust and Python code.
+    """Base class for the linear layer. Represents the linear layer that can be
+    rendered with both python and rust.
     """
 
     def __init__(self, spec):
-        """
-        Base initialization for all layers.
-        The name is always read from the specification in the same way.
-        """
         super().__init__(spec)
-        self.in_channels = spec["in_channels"]
-        self.out_channels = spec["out_channels"]
+        self.in_features = spec["in_features"]
+        self.out_features = spec["out_features"]
         self.bias = spec["bias"]
         self._name = spec["name"]
 
@@ -35,18 +30,18 @@ class LinearLayer(Layer):
 
     @property
     def weights(self) -> list[Optional[Weight]]:
-        kernel = Weight("weight", (self.in_channels, self.out_channels))
+        kernel = Weight("weight", (self.in_features, self.out_features))
         if self.bias is False:
             bias = None
         else:
-            bias = Weight("bias", (self.out_channels,), optional=True)
+            bias = Weight("bias", (self.out_features,), optional=True)
         return [kernel, bias]
 
     @property
     def args_py(self) -> dict[str, str]:
         return {
-            "in_features": str(self.in_channels),
-            "out_features": str(self.out_channels),
+            "in_features": str(self.in_features),
+            "out_features": str(self.out_features),
             "bias": str(self.bias),
         }
 
