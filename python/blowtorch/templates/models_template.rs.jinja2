@@ -15,7 +15,11 @@ use blowtorch::nn::{ConvolutionLayer, TransposedConvolutionLayer, LinearLayer, F
 {% for m in models %} 
     pub struct {{m.module_name}}<F: FloatLikePrimitive> {
         {% for l in m.layers %}
-            {{l.name}}: {{l.type_rust}}<F>,
+            {% if l.name == "flatten" %}
+                {{l.name}}: {{l.type_rust}},
+            {% else %}
+                {{l.name}}: {{l.type_rust}}<F>,
+            {% endif %}
         {% endfor %}
     }
 

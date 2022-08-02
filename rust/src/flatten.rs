@@ -2,6 +2,7 @@
 //! See <https://pytorch.org/docs/stable/generated/torch.nn.Flatten.html>
 use ndarray::*;
 use num_traits::Float;
+use std::marker::PhantomData;
 
 /// Rust implementation of a linear layer.
 pub struct Flatten {}
@@ -12,10 +13,6 @@ impl Flatten {
     }
 
     pub fn activate<F: Float>(&self, x: &Array3<F>) -> Array1<F> {
-        // let out_channel = x.len_of(Axis(0));
-        // let h_prime = x.len_of(Axis(1));
-        // let w_prime = x.len_of(Axis(2));
-        // let out_shape = out_channel * h_prime * w_prime;
         let x_array: ArrayView3<F> = x.into();
         let flatten_img: Array1<F> = Array::from_iter(x_array.map(|a| *a));
         flatten_img

@@ -37,7 +37,7 @@ architecture. The required fields for each model are as follows:
 More specifically, each layer can be added as follows:
 
 1. The type of layer must be described in the key named "type" and this is a required field. Ensure that
-the name of the layer matches the naming convention of PyTorch accurately. For example, if you want to add 
+the "type" of the layer matches the naming convention of PyTorch accurately. For example, if you want to add 
 a 2D convolutional layer, the PyTorch name equivalent is "Conv2d". Additionally, each layer requires a "name"
 and this is mandatory for BlowTorch to correctly load weights to rust. Note that the names of each layer have to
 be unique. Hence, 
