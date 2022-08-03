@@ -81,14 +81,13 @@ if __name__ == "__main__":
         print("Done!")
 
         ######## save model ########
-        torch.save(model.state_dict(), model_path)
+        torch.save(model, model_path)
         print("Model is saved")
 
     ####### inference ##########
     if save_test:
         assert os.path.exists(model_path)
-        checkpoint = torch.load(model_path)
-        model.load_state_dict(checkpoint)
+        model = torch.load(model_path)
         model.eval()
 
         # test_loop(test_dataloader, model, loss_fn)
