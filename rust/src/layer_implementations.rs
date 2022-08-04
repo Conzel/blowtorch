@@ -4,30 +4,31 @@
 /// layer.
 use crate::{
     activation_functions::{GdnLayer, IgdnLayer, ReluLayer},
-    traits::{FloatLikePrimitive, Layer},
+    flatten::Flatten,
     linear::LinearLayer,
+    traits::{FloatLikePrimitive, Layer},
 };
 use convolutions_rs::{
     convolutions::ConvolutionLayer, transposed_convolutions::TransposedConvolutionLayer,
 };
-use ndarray::{Array3, Array2};
+use ndarray::{Array1, Array2, Array3, Dimension, Array};
 
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ConvolutionLayer<F> {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
         self.convolve(input)
     }
 }
-impl<F: FloatLikePrimitive> Layer<Array2<F>, Array2<F>> for LinearLayer<F> {
-    fn forward_pass(&self, input: &Array2<F>) -> Array2<F> {
-        self.linear(input)
-    }
-}
+
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for TransposedConvolutionLayer<F> {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
         self.transposed_convolve(input)
     }
 }
-
+impl<F: FloatLikePrimitive> Layer<Array1<F>, Array1<F>> for LinearLayer<F> {
+    fn forward_pass(&self, input: &Array1<F>) -> Array1<F> {
+        self.linear(input)
+    }
+}
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for GdnLayer<F> {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
         self.activate(input)
@@ -42,6 +43,11 @@ impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for IgdnLayer<F> {
 
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ReluLayer {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
+        self.activate(input)
+    }
+}
+impl<F: FloatLikePrimitive, D: Dimension> Layer<Array<F, D>, Array1<F>> for Flatten<F> {
+    fn forward_pass(&self, input: &Array<F, D>) -> Array1<F> {
         self.activate(input)
     }
 }

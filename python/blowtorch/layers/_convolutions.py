@@ -25,7 +25,8 @@ class Conv2dBase(Layer):
         elif self.padding == "same":
             if self.kernel_size[0] != self.kernel_size[1]:
                 raise ValueError(
-                    "Not supported: padding=same and kernel_size[0] != kernel_size[1]")
+                    "Not supported: padding=same and kernel_size[0] != kernel_size[1]"
+                )
             padding = str(self.kernel_size[0] // 2)
         else:
             raise ValueError(f"Unknown padding {self.padding}")
@@ -36,13 +37,20 @@ class Conv2dBase(Layer):
             "kernel_size": str(self.kernel_size),
             "stride": str(self.stride),
             "padding": padding,
-            "bias": str(self.bias)
+            "bias": str(self.bias),
         }
 
     @property
     def weights(self) -> list[Optional[Weight]]:
-        kernel = Weight("weight", (self.out_channels, self.in_channels,
-                        self.kernel_size[0], self.kernel_size[1]))
+        kernel = Weight(
+            "weight",
+            (
+                self.out_channels,
+                self.in_channels,
+                self.kernel_size[0],
+                self.kernel_size[1],
+            ),
+        )
         if self.bias is False:
             bias = None
         else:
@@ -52,6 +60,14 @@ class Conv2dBase(Layer):
     @property
     def args_rust(self) -> list[str]:
         return [self.stride, parse_padding_from_string(self.padding)]
+
+    @property
+    def input_dim(self) -> int:
+        return 3
+
+    @property
+    def output_dim(self) -> int:
+        return 3
 
 
 class Conv2d(Conv2dBase):
@@ -69,6 +85,7 @@ class Conv2d(Conv2dBase):
 
 class Conv2dTranspose(Conv2dBase):
     """Represents a 2d transposed convolutional layer that can be rendered in Python and Rust."""
+
     @property
     def type_py(self) -> str:
         return "ConvTranspose2d"

@@ -9,7 +9,7 @@ use blowtorch::ndarray::*;
 use blowtorch::nn::loading::WeightLoader;
 use blowtorch::nn::utils::Padding;
 use blowtorch::nn::{Layer, FloatLikePrimitive};
-use blowtorch::nn::{ConvolutionLayer, TransposedConvolutionLayer};
+use blowtorch::nn::{ConvolutionLayer, TransposedConvolutionLayer, LinearLayer, Flatten};
 
 
 {% for m in models %} 

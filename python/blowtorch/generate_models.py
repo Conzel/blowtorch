@@ -29,8 +29,7 @@ def make_py(models: list[Model], debug: bool = False):
     """Renders the given models into python code."""
     template = get_template("models_template.py.jinja2")
 
-    content = template.render(
-        models=models, file=__file__, debug=debug)
+    content = template.render(models=models, file=__file__, debug=debug)
 
     # writing out the models.rs file
     model_output_file = os.path.join("models", "models.py")
@@ -41,8 +40,7 @@ def make_rs(models: list[Model], debug: bool = False):
     """Renders the given models into python code."""
     template = get_template("models_template.rs.jinja2")
 
-    content = template.render(
-        models=models, file=__file__, debug=debug)
+    content = template.render(models=models, file=__file__, debug=debug)
 
     # writing out the models.rs file
     model_output_file = os.path.join("models", "models.rs")
@@ -64,7 +62,11 @@ def models_from_spec(spec: str, skip_validation: bool = False) -> list[Model]:
     return list(map(Model, specifications))
 
 
-def generate_models(spec: str, skip_validation: bool = False, debug: bool = False, ):
+def generate_models(
+    spec: str,
+    skip_validation: bool = False,
+    debug: bool = False,
+):
     """
     Loads models from the given specification and turns them into
     useable python and Rust code that is written to the models folder.

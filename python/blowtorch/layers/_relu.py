@@ -27,3 +27,11 @@ class Relu(Layer):
     @property
     def args_rust(self) -> list[str]:
         return []
+
+    @property
+    def input_dim(self) -> int:
+        return -1
+
+    @property
+    def output_dim(self) -> int:
+        return -1
