@@ -11,7 +11,7 @@ use crate::{
 use convolutions_rs::{
     convolutions::ConvolutionLayer, transposed_convolutions::TransposedConvolutionLayer,
 };
-use ndarray::{Array1, Array2, Array3};
+use ndarray::{Array1, Array2, Array3, Dimension, Array};
 
 impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ConvolutionLayer<F> {
     fn forward_pass(&self, input: &Array3<F>) -> Array3<F> {
@@ -46,8 +46,8 @@ impl<F: FloatLikePrimitive> Layer<Array3<F>, Array3<F>> for ReluLayer {
         self.activate(input)
     }
 }
-impl<F: FloatLikePrimitive> Layer<Array3<F>, Array1<F>> for Flatten {
-    fn forward_pass(&self, input: &Array3<F>) -> Array1<F> {
+impl<F: FloatLikePrimitive, D: Dimension> Layer<Array<F, D>, Array1<F>> for Flatten<F> {
+    fn forward_pass(&self, input: &Array<F, D>) -> Array1<F> {
         self.activate(input)
     }
 }
