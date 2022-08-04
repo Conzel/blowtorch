@@ -78,6 +78,7 @@ if __name__ == "__main__":
             print(f"Epoch {t+1}\n-------------------------------")
             train_loop(train_dataloader, model, loss_fn, optimizer)
             test_loop(test_dataloader, model, loss_fn)
+            torch.save(model, model_path)
         print("Done!")
 
         ######## save model ########
