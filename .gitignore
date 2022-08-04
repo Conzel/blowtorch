@@ -229,3 +229,4 @@ Thumbs.db
 **/.vscode
 examples/mnist/weights.npz
 examples/mnist/target
+**/data
