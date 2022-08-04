@@ -1,0 +1,52 @@
+[
+    {
+        "module_name": "MnistClassifier",
+        "layers": [
+            {
+                "type": "Conv2d",
+                "name": "conv1",
+                "stride": 1,
+                "padding": "same",
+                "bias": false,
+                "in_channels": 1,
+                "out_channels": 6,
+                "kernel_size": "(5,5)"
+            },
+            {
+                "type": "Conv2d",
+                "name": "conv2",
+                "stride": 1,
+                "padding": "same",
+                "bias": false,
+                "in_channels": 6,
+                "out_channels": 16,
+                "kernel_size": "(5,5)"
+            },
+            {
+                "type": "Flatten",
+                "name": "flatten"
+            },
+            {
+                "type": "Linear",
+                "name": "fc1",
+                "bias": false,
+                "in_features": 12544,
+                "out_features": 120
+            },
+            {
+                "type": "Linear",
+                "name": "fc2",
+                "bias": false,
+                "in_features": 120,
+                "out_features": 84
+            },
+            {
+                "type": "Linear",
+                "name": "fc3",
+                "bias": false,
+                "in_features": 84,
+                "out_features": 10
+            }
+        ]
+    }
+]
