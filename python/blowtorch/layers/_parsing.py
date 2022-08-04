@@ -15,6 +15,18 @@ LAYER_DISPATCH = {
     "ReLU": Relu,
 }
 
+"""
+Contains the input and output shapes for the layers. -1 is a wildcard (takes 
+output / input dimension of last / next layer)
+"""
+LAYER_INPUT_OUTPUT_SHAPE = {
+    "Conv2d": Conv2d,
+    "Conv2dTranspose": Conv2dTranspose,
+    "Linear": LinearLayer,
+    "Flatten": Flatten,
+    "ReLU": Relu,
+}
+
 
 def parse_layer(layer_spec: dict) -> Layer:
     """Parses the type of the layer from the specification and returns the corresponding
@@ -38,9 +50,39 @@ class Model:
         """
         Initializes a model that can be rendered by the models_template.rs Jinja file.
         """
-        # for now we fix the input and output dimension, but this should be configurable
-        # (think of a layer that flattens the input?)
-        self.input_dim = 3
-        self.output_dim = 1
         self.module_name = specification["module_name"]
         self.layers: List[Layer] = list(map(parse_layer, specification["layers"]))
+        self.input_dim, self.output_dim = Model._calculate_tensor_shapes(self.layers)
+
+    @staticmethod
+    def _calculate_tensor_shapes(layers: list[Layer]) -> tuple[int, int]:
+        """
+        Calculates the shapes a sample input would have when going through the model.
+
+        This also validates that all input/output dimensions of the layers fit
+        together (e.g. we do not use a 2d convolution after a flatten layer),
+        and raises an error if this is not the case.
+
+        Returns the total input/output shapes of the model.
+        """
+        if len(layers) == 0:
+            raise ValueError("Empty model from specification.")
+        x_dim = layers[0].input_dim
+        if x_dim == -1:
+            raise ValueError(
+                f"Model shall not start with a flexible input-size layer, found: {layers[0]}"
+            )
+
+        for l in layers:
+            if l.input_dim == -1 or x_dim == l.input_dim:
+                if l.output_dim == -1:
+                    pass  # x_dim simply stays the way it is
+                else:
+                    x_dim = l.output_dim
+
+            if l.input_dim != -1 and x_dim != l.input_dim:
+                raise ValueError(
+                    f"Model had input sizes missmatch at {l}, expected dim {l.input_dim}, found {x_dim}."
+                )
+            assert x_dim != -1  # dummy check
+        return layers[0].input_dim, x_dim

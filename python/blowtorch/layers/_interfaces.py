@@ -57,6 +57,12 @@ class Layer(ABC):
         """Returns the name of the layer."""
         return self._name
 
+    def __str__(self) -> str:
+        return f"Layer[{self.name}]"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
     @property
     @abstractmethod
     def type_py(self) -> str:
@@ -88,4 +94,22 @@ class Layer(ABC):
     def args_rust(self) -> list[str]:
         """List of arguments that are passed to the constructor of the Rust layer (besides weights,
         which are specified in the weights property). Has to be in the correct order."""
+        pass
+
+    @property
+    @abstractmethod
+    def input_dim(self) -> int:
+        """
+        Returns expected dimension of the input. -1 stands for a
+        wildcard, meaning the layer accepts any input.
+        """
+        pass
+
+    @property
+    @abstractmethod
+    def output_dim(self) -> int:
+        """
+        Returns output dimension of the layer. -1 stands for a wildcard, meaning
+        that the output dimension is the same as the input dimension.
+        """
         pass

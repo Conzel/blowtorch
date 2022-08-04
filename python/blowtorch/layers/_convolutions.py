@@ -2,7 +2,7 @@ import ast
 from typing import Optional
 from ._interfaces import Layer, Weight
 
- 
+
 class Conv2dBase(Layer):
     """
     Base class for 2d convolutions, as there is not much change between
@@ -61,12 +61,19 @@ class Conv2dBase(Layer):
     def args_rust(self) -> list[str]:
         return [self.stride, parse_padding_from_string(self.padding)]
 
+    @property
+    def input_dim(self) -> int:
+        return 3
+
+    @property
+    def output_dim(self) -> int:
+        return 3
+
 
 class Conv2d(Conv2dBase):
     """
     Represents a 2d convolutional layer that can be rendered in Python and Rust.
     """
-
     @property
     def type_py(self) -> str:
         return "Conv2d"
