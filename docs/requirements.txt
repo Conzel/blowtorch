@@ -1,2 +1,2 @@
-sphinx-argparse
-furo
+sphinx-argparse==0.3.1
+furo==2022.6.21
