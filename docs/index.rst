@@ -30,5 +30,6 @@ This documentation has the following information:
 
    install
    tutorial
+   new_layers
    model_reference
    cli_reference

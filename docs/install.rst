@@ -1,3 +1,5 @@
+.. _installation:
+
 Installation 
 ============
 
@@ -27,6 +29,7 @@ Activate a new poetry shell and install the dependencies (or use any other venv 
     poetry shell 
     poetry install
 
-Now you can install the package locally (in edit mode so changes are reflected)::
+Alternatively, you can install the project with pip from the :file:`pyproject.toml` file. 
+Run (in the :file:`blowtorch/python` folder)::
 
     pip install -e .

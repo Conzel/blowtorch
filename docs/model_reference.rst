@@ -1,6 +1,6 @@
 Model Reference
 ===============
-The model must be specified via a .json file. This file is validated validated
+The model must be specified via a .json file. This file is validated 
 via a jsonschema. 
 
 The model definition must consist of a list of modules. Each module 
