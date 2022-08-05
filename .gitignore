@@ -230,3 +230,6 @@ Thumbs.db
 examples/mnist/weights.npz
 examples/mnist/target
 **/data
+tests/**/examples
+tests/**/weights.npz
+tests/**/model.pt
