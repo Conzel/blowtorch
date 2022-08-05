@@ -17,6 +17,12 @@ Next, navigate to the examples folder:
 
             cd blowtorch/examples/mnist/    
 
+Install the requirements using poetry (or using pip with the pyproject.toml):
+
+.. code-block:: bash
+
+            poetry install
+
 Model description
 ^^^^^^^^^^^^^^^^^^^
 Next, we define the architecture of the desired neural network that is trained using PyTorch. Create 
