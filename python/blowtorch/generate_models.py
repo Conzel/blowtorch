@@ -3,7 +3,6 @@ import jinja2
 import os
 import json
 import jsonschema
-from pytest import skip
 from .layers import Model
 
 
