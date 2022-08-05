@@ -6,7 +6,7 @@ once in a JSON file. Blowtorch then exports your specification into Rust and Pyt
 models. You can train the Python model as you prefer, and Blowtorch can be run again
 to share the weights to Rust. 
 
-An example application built with a predecessor of Blowtorch is [ZipNet](https://conzel.github.io/zipnet/), 
+An example application built with a predecessor of Blowtorch is `ZipNet <https://conzel.github.io/zipnet/>`__, 
 which is a neural-network based compression algorithm run entirely in the browser.
 We built Blowtorch as we could not find any easily extensible machine learning frameworks
 that could be compiled to WebAssembly.
