@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "blowtorch-py"
-version = "0.1.0"
+version = "0.1.2"
 description = "A framework for creating Rust machine learning models that are trained in Python."
 authors = ["Conzel <38732545+Conzel@users.noreply.github.com>"]
+readme = "README.md"
 license = "MIT"
 packages = [{ include = "blowtorch" }]
 
