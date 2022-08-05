@@ -1,0 +1,54 @@
+name: Blowtorch Tests And Formatting
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: ${{ matrix.platform }} ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest]
+        python-version: [3.9]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+ 
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+    
+    - name: Switch to python folder
+      run: cd python
+
+    - name: Install dependencies
+      run: poetry install
+    
+    - name: Switch back to root
+      run: cd ..
+    
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Run Rust test
+      run: |
+        cd rust && cargo test && cd ..
+
+    - name: Run integration test
+      run: |
+        cd tests && sh mnist_test.sh
+
+    - name: Build the documentation
+      run: |
+        cd docs && make html
