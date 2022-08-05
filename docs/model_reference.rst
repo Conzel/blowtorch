@@ -1,3 +1,5 @@
+.. _model_ref:
+
 Model Reference
 ===============
 The model must be specified via a .json file. This file is validated 

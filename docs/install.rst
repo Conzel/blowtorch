@@ -5,8 +5,16 @@ Installation
 
 User Installation
 -----------------
-The pip package will be available in the near future. 
-Please use the developer installation until then.
+You can install our pip package via::
+
+    pip install blowtorch-py
+
+Take care, as the package is blowtorch, but the PyPI name is blowtorch-py.
+The Rust part can simply be added to your Cargo.toml by adding the line::
+
+    blowtorch="x.y.z"
+
+with x.y.z. being the current blowtorch version.
 
 Developer Installation
 ----------------------
