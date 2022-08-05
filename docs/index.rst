@@ -19,7 +19,7 @@ Advantages over similar packages
 
 This documentation has the following information:
 
-* "Install" explains how to install Blowtorch (developer and user side)
+* "Installation" explains how to install Blowtorch (developer and user side)
 * "Tutorial" showcases an MNIST example to get started with Blowtorch
 * "Model Reference" shows how to create a JSON file that can be parsed by blowtorch to a correct model
 * "CLI Reference" contains information about how to use the Blowtorch CLI
