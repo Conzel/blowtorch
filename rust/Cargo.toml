@@ -1,10 +1,11 @@
 [package]
 license = "MIT"
 name = "blowtorch"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Crate for running and creating Rust models trained in Pytorch."
 repository = "https://github.com/Conzel/blowtorch"
+documentation = "https://blowtorch.readthedocs.io/en/latest/."
 readme = "../README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

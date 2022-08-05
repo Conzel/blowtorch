@@ -16,6 +16,8 @@ Advantages over similar packages
 - Training is completely in Python, meaning you can use whatever training procedures you like
 - Complex networks can be built by splitting the architecture into simpler modules, which are combined together by some glue code
 
+Our documentation can be found at https://blowtorch.readthedocs.io/en/latest/.
+
 ## Features
 
 - [x] Export and import trained weights
